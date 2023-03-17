@@ -1,5 +1,5 @@
 import detectProvider from '@metamask/detect-provider'
-import { useBooleanWatcher } from './useBooleanWatcher'
+import { useWatchBoolean } from './useWatchBoolean'
 import type { Ref } from 'vue'
 import { ref, reactive } from 'vue'
 import { ethers } from 'ethers'
@@ -11,7 +11,7 @@ const pending = ref(true)
 const error = ref('')
 
 export function useWeb3Provider() {
-  const { onTrue: onProviderAvailable, toggle: toggleProviderAvailable } = useBooleanWatcher(false)
+  const { onTrue: onProviderAvailable, toggle: toggleProviderAvailable } = useWatchBoolean(false)
 
   const init = async () => {
     const provider = await detectProvider()

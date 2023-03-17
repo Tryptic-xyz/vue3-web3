@@ -2,7 +2,7 @@ import { watch, ref, isRef } from 'vue'
 import type { Ref } from 'vue'
 import type { WatcherArray, WatcherOptions } from '../types/watcher'
 
-export function useBooleanWatcher(value?: Boolean | Ref<Boolean>) {
+export function useWatchBoolean(value?: Boolean | Ref<Boolean>) {
   const onTrueWatchers: WatcherArray = []
   const onFalseWatchers: WatcherArray = []
   const refToWatch = isRef(value) ? value : ref(value)
