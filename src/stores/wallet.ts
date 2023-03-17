@@ -1,18 +1,19 @@
+import { watchEffect, ref, reactive, toRefs, computed } from 'vue'
 import { defineStore } from 'pinia'
+
 import { useWeb3ProviderStore } from '@/stores/web3Provider'
 import { useENS } from '@/composables/useENS'
-import { watchEffect, ref, reactive, toRefs, computed } from 'vue'
 
 interface Wallet {
   address: string | null
-  ensAddress?: string | null
+  ensName?: string | null
 }
 
 export const useWalletStore = defineStore('wallet', () => {
   const { onProviderConnected, getProviders } = useWeb3ProviderStore()
   const { lookupAddress } = useENS()
 
-  const wallet: Wallet = reactive({ address: null, ensAddress: null })
+  const wallet: Wallet = reactive({ address: null, ensName: null })
   const listeningToEvents = ref(false)
   const error = ref('')
 
@@ -44,7 +45,6 @@ export const useWalletStore = defineStore('wallet', () => {
   async function initWallet() {
     const { browserProvider } = getProviders()
     const accts = await browserProvider?.listAccounts()
-    console.log(accts, 'init wallet')
 
     if (accts?.length) {
       setAccount(accts[0].address)
@@ -88,7 +88,7 @@ export const useWalletStore = defineStore('wallet', () => {
 
   watchEffect(async () => {
     if (wallet.address) {
-      wallet.ensAddress = await lookupAddress(wallet.address)
+      wallet.ensName = await lookupAddress(wallet.address)
     }
   })
 

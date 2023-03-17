@@ -1,14 +1,14 @@
 import { defineStore, acceptHMRUpdate } from 'pinia'
 import detectProvider from '@metamask/detect-provider'
-import { useWatchBoolean } from '@/composables/useWatchBoolean'
-import type { Ref } from 'vue'
-import { ref, reactive } from 'vue'
+import { ref } from 'vue'
 import { ethers } from 'ethers'
 import type { BrowserProvider, AlchemyProvider } from 'ethers/types'
+
+import { useWatchBoolean } from '@/composables/useWatchBoolean'
 import { useNetwork } from '@/composables/useNetwork'
 
 export const useWeb3ProviderStore = defineStore('provider', () => {
-  const { getNetwork } = useNetwork()
+  const { getNetwork, name: networkName, chainId, etherscanURL } = useNetwork()
 
   const {
     onTrue: onProviderConnected,
@@ -51,7 +51,16 @@ export const useWeb3ProviderStore = defineStore('provider', () => {
 
   init()
 
-  return { onProviderConnected, getProviders, error, pending, connected }
+  return {
+    onProviderConnected,
+    getProviders,
+    error,
+    pending,
+    connected,
+    networkName,
+    chainId,
+    etherscanURL
+  }
 })
 
 if (import.meta.hot) {

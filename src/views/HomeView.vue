@@ -2,6 +2,7 @@
 import Web3Provider from '@/components/Web3Provider.vue'
 import { useWalletStore } from '@/stores/wallet'
 import { useNetwork } from '@/composables/useNetwork'
+import Web3WalletDisplay from '@/components/Web3AccountDisplay.vue'
 
 const { chainId, apiKey, name, etherscanURL } = useNetwork()
 
@@ -9,10 +10,12 @@ const walletStore = useWalletStore()
 </script>
 
 <template>
-  <Web3Provider>
+  <Web3WalletDisplay :showConnectBtn="true" />
+  <!-- <Web3Provider>
     <template #connected>
       <div class="flex">{{ chainId }} {{ name }}</div>
+      {{ walletStore.ensName }}
       <button v-if="!walletStore.address" @click="() => walletStore.connect()">connect</button>
     </template>
-  </Web3Provider>
+  </Web3Provider> -->
 </template>
