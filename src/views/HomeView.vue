@@ -1,14 +1,16 @@
 <script setup lang="ts">
-import { useWeb3Provider } from '@/composables/useWeb3Provider'
-const { onProviderAvailable, getProviders, error, pending } = useWeb3Provider()
+import { useWeb3ProviderStore } from '@/stores/web3Provider'
+import { useNetworkStore } from '@/stores/network'
+import { storeToRefs } from 'pinia'
+const { getProviders, onProviderAvailable } = useWeb3ProviderStore()
+const store = useNetworkStore()
+const { chainId, apiKey, name, etherscanURL } = storeToRefs(store)
 
-onProviderAvailable(() => {
-  const { browserProvider } = getProviders()
+onProviderAvailable(async () => {
+  console.log(chainId, name)
 })
 </script>
 
 <template>
-  <div class="flex">
-    {{ !pending && error ? error : 'connected.' }}
-  </div>
+  <div class="flex">{{ chainId }} {{ name }}</div>
 </template>

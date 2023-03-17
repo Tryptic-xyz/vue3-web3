@@ -15,6 +15,7 @@ export function useWeb3Provider() {
 
   const init = async () => {
     const provider = await detectProvider()
+    console.log('init')
 
     if (provider) {
       browserProvider = new ethers.BrowserProvider(window.ethereum)
