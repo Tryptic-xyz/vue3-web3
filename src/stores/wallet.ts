@@ -71,10 +71,6 @@ export const useWalletStore = defineStore('wallet', () => {
     }
   }
 
-  onProviderConnected(() => {
-    initWallet()
-  })
-
   const prettyAddress = computed(() => {
     if (wallet.address) {
       const t = wallet.address.split('')
@@ -86,11 +82,22 @@ export const useWalletStore = defineStore('wallet', () => {
     }
   })
 
+  const getSigner = async () => {
+    if (wallet.address) {
+      const { browserProvider } = getProviders()
+      return await browserProvider?.getSigner()
+    }
+  }
+
   watchEffect(async () => {
     if (wallet.address) {
       wallet.ensName = await lookupAddress(wallet.address)
     }
   })
 
-  return { connect, error, ...toRefs(wallet), prettyAddress }
+  onProviderConnected(() => {
+    initWallet()
+  })
+
+  return { connect, error, ...toRefs(wallet), prettyAddress, getSigner }
 })
