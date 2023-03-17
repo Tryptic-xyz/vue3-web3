@@ -5,27 +5,31 @@ import { ref, reactive } from 'vue'
 import { ethers } from 'ethers'
 import type { BrowserProvider, AlchemyProvider } from 'ethers/types'
 
-let browserProvider: BrowserProvider | null = null
-let alchemyProvider: AlchemyProvider | null = null
-const pending = ref(true)
-const error = ref('')
-
 export function useWeb3Provider() {
-  const { onTrue: onProviderAvailable, toggle: toggleProviderAvailable } = useWatchBoolean(false)
+  const {
+    onTrue: onProviderConnected,
+    toggle: toggleProviderConnected,
+    ref: connected
+  } = useWatchBoolean(false)
+
+  const pending = ref(true)
+  const error = ref('')
+
+  const browserProvider: BrowserProvider | null = null
+  const alchemyProvider: AlchemyProvider | null = null
 
   const init = async () => {
     const provider = await detectProvider()
-    console.log('init')
 
-    if (provider) {
-      browserProvider = new ethers.BrowserProvider(window.ethereum)
-      alchemyProvider = new ethers.AlchemyProvider()
-      await browserProvider.send('eth_requestAccounts', [])
+    // if (provider) {
+    //   browserProvider = new ethers.BrowserProvider(window.ethereum)
+    //   alchemyProvider = new ethers.AlchemyProvider()
+    //   // await browserProvider.send('eth_requestAccounts', [])
 
-      toggleProviderAvailable()
-    } else {
-      error.value = 'Please visit this website from a web3 enabled browser.'
-    }
+    //   toggleProviderConnected()
+    // } else {
+    //   error.value = 'Please visit this website from a web3 enabled browser.'
+    // }
 
     pending.value = false
   }
@@ -37,7 +41,7 @@ export function useWeb3Provider() {
     }
   }
 
-  init()
+  // init()
 
-  return { onProviderAvailable, getProviders, error, pending }
+  return { onProviderConnected, getProviders, error, pending, connected }
 }

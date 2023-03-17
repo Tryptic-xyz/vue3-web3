@@ -1,16 +1,18 @@
 <script setup lang="ts">
-import { useWeb3ProviderStore } from '@/stores/web3Provider'
-import { useNetworkStore } from '@/stores/network'
-import { storeToRefs } from 'pinia'
-const { getProviders, onProviderAvailable } = useWeb3ProviderStore()
-const store = useNetworkStore()
-const { chainId, apiKey, name, etherscanURL } = storeToRefs(store)
+import Web3Provider from '@/components/Web3Provider.vue'
+import { useWalletStore } from '@/stores/wallet'
+import { useNetwork } from '@/composables/useNetwork'
 
-onProviderAvailable(async () => {
-  console.log(chainId, name)
-})
+const { chainId, apiKey, name, etherscanURL } = useNetwork()
+
+const walletStore = useWalletStore()
 </script>
 
 <template>
-  <div class="flex">{{ chainId }} {{ name }}</div>
+  <Web3Provider>
+    <template #connected>
+      <div class="flex">{{ chainId }} {{ name }}</div>
+      <button v-if="!walletStore.address" @click="() => walletStore.connect()">connect</button>
+    </template>
+  </Web3Provider>
 </template>
