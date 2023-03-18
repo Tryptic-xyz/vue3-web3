@@ -3,6 +3,7 @@ import { useWalletStore } from '@/stores/wallet'
 import Web3WalletDisplay from '@/components/Web3AccountDisplay.vue'
 import { useContract } from '@/composables/useContract'
 import abi from '@/abi/oSnipe'
+import { showTxToast } from '@/utils/ToastComponents.jsx'
 
 const CONTRACT_CONSTANTS = {
   sniperPriceETH: '0.5',
@@ -66,14 +67,16 @@ async function test() {
 
 async function click() {
   try {
-    const receipt = await write({ name: 'mintObservers', args: [1], value: 1 })
+    const receipt = await write({ name: 'mintObservers', args: [1] }, { value: 5 })
     console.log(receipt)
+
+    showTxToast(receipt)
   } catch (error: any) {
     const e = {
       error,
       message: 'There was a problem minting. Maybe you already have the maximum?'
     }
-    console.log(e)
+    showTxToast(error)
   }
 }
 </script>
