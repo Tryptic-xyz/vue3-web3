@@ -1,4 +1,4 @@
-import { reactive, toRefs } from 'vue'
+import { reactive } from 'vue'
 
 interface Network {
   chainId?: string | null
