@@ -18,7 +18,7 @@ interface ReadMethod extends ContractMethod {
 }
 
 interface WriteMethod extends ContractMethod {
-  overrides: Overrides
+  value: number | string
 }
 
 export function useContract(address: string, abi: InterfaceAbi) {
@@ -76,7 +76,7 @@ export function useContract(address: string, abi: InterfaceAbi) {
     return results
   }
 
-  async function write({ name, args, overrides = {} }: WriteMethod) {
+  async function write({ name, args }: WriteMethod, overrides: Overrides = {}) {
     txPending.value = true
 
     try {
@@ -106,10 +106,11 @@ export function useContract(address: string, abi: InterfaceAbi) {
             txURL: useTxURL(error.receipt.hash)
           }
         }
-        throw errObj
+        txPending.value = false
+        return errObj
       }
     }
   }
 
-  return { read, write, onContractInit, batchRead }
+  return { read, write, onContractInit, batchRead, txPending }
 }
