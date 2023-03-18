@@ -18,7 +18,7 @@ interface ReadMethod extends ContractMethod {
 }
 
 interface WriteMethod extends ContractMethod {
-  value: number | string
+  value?: number | string
 }
 
 export function useContract(address: string, abi: InterfaceAbi) {
@@ -95,9 +95,11 @@ export function useContract(address: string, abi: InterfaceAbi) {
         const e = JSON.parse(error.message.substring(start, end))
         throw { error: { ...e.error } }
       } else {
+        // TODO handle errors better, more descriptive error messages
         const errObj = {
-          ...error,
-          message: 'Transaction Failed!'
+          error,
+          message: 'Transaction Failed!',
+          receipt: null
         }
 
         if (error.receipt) {
