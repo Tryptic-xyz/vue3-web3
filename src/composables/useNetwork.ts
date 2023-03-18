@@ -58,5 +58,5 @@ export const useNetwork = () => {
 
   listenForNetworkChanges()
 
-  return { getNetwork, ...toRefs(network) }
+  return { getNetwork, network }
 }
