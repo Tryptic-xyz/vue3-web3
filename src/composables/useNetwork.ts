@@ -56,7 +56,9 @@ export const useNetwork = () => {
     return { ...networkMap[chainId] }
   }
 
-  listenForNetworkChanges()
+  if (window.ethereum) {
+    listenForNetworkChanges()
+  }
 
   return { getNetwork, network }
 }
