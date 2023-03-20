@@ -1,17 +1,16 @@
-//TODO mayve inject the provider into app here
-// have it available app wide?
 import { createApp } from 'vue'
 import { createPinia } from 'pinia'
 import Toast from 'vue-toastification'
-import './assets/main.css'
-import 'vue-toastification/dist/index.css'
 import App from './App.vue'
 import initRouter from './router'
 
 import { initializeApp } from 'firebase/app'
-import { getFunctions } from 'firebase/functions'
 import { onAuthStateChanged, getAuth } from 'firebase/auth'
+
 import { useUserStore } from './stores/user'
+
+import './assets/main.css'
+import 'vue-toastification/dist/index.css'
 
 const firebaseConfig = {
   apiKey: 'AIzaSyCUrID-x-1poykOan0NUuX1YdUnEE7YTnk',
@@ -22,9 +21,7 @@ const firebaseConfig = {
   appId: '1:686248080273:web:c111f77c8d3630eadbe030'
 }
 
-// Initialize Firebase
-const fbapp = initializeApp(firebaseConfig)
-const functions = getFunctions(fbapp)
+initializeApp(firebaseConfig)
 const auth = getAuth()
 
 const options = {

@@ -1,18 +1,11 @@
 <script setup lang="ts">
 import { useWalletStore } from '@/stores/wallet'
-import { useWeb3ProviderStore } from '@/stores/web3Provider'
 import Web3WalletDisplay from '@/components/Web3AccountDisplay.vue'
 import { useContract } from '@/composables/useContract'
 import abi from '@/abi/oSnipe'
 import { showTxToast } from '@/utils/ToastComponents.jsx'
 import { useUserStore } from '@/stores/user'
-import { getFunctions, httpsCallable } from 'firebase/functions'
 const { user, login, logout } = useUserStore()
-
-const { getProviders } = useWeb3ProviderStore()
-const functions = getFunctions()
-const getNonce = httpsCallable(functions, 'retrieveNonce')
-const verifySignature = httpsCallable(functions, 'verifySignedMessage')
 
 const CONTRACT_CONSTANTS = {
   sniperPriceETH: '0.5',
@@ -88,25 +81,13 @@ async function click() {
     showTxToast(error)
   }
 }
-
-async function loginUser() {
-  const { browserProvider } = getProviders()
-  const res: any = await getNonce({ address: wallet.address })
-  const signer = await browserProvider?.getSigner()
-  const signature = await signer?.signMessage(res.data.nonce)
-  const {
-    data: { token }
-  } = await verifySignature({ address: wallet.address, signature })
-  console.log(token)
-  await login(token)
-}
 </script>
 
 <template>
   <div>
     <RouterLink to="about">ABOUT</RouterLink>
     <Web3WalletDisplay :showConnectBtn="true" />
-    <button v-if="!user.id" :disabled="txPending" @click="() => loginUser()">login</button>
+    <button v-if="!user.id" :disabled="txPending" @click="() => login()">login</button>
     <button v-if="user.id" @click="() => logout()">logout</button>
   </div>
 </template>
