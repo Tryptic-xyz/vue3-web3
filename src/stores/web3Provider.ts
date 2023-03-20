@@ -8,7 +8,7 @@ import { useWatchBoolean } from '@/composables/useWatchBoolean'
 import { useNetwork } from '@/composables/useNetwork'
 
 export const useWeb3ProviderStore = defineStore('provider', () => {
-  const { getNetwork, name: networkName, chainId, etherscanURL } = useNetwork()
+  const { getNetwork } = useNetwork()
 
   const {
     onTrue: onProviderConnected,
@@ -56,10 +56,7 @@ export const useWeb3ProviderStore = defineStore('provider', () => {
     getProviders,
     error,
     pending,
-    connected,
-    networkName,
-    chainId,
-    etherscanURL
+    connected
   }
 })
 
