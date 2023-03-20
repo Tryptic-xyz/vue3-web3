@@ -1,5 +1,7 @@
 <script setup lang="ts">
 import Web3Provider from './Web3Provider.vue'
+import MetamaskIcon from './IconMetamask.vue'
+
 import { useWalletStore } from '@/stores/wallet'
 const wallet = useWalletStore()
 </script>
@@ -7,7 +9,15 @@ const wallet = useWalletStore()
 <template>
   <Web3Provider>
     <template #connected>
-      <button @click="() => wallet.connect()">connect</button>
+      <div class="relative flex">
+        <div
+          class="relative flex justify-center cursor-pointer items-center rounded-md bg-white px-5 py-2.5 text-sm font-semibold text-gray-900 shadow-sm hover:bg-gray-100 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
+          @click="() => wallet.connect()"
+        >
+          <MetamaskIcon class="h-6 w-6 mr-3" />
+          Connect Your Wallet
+        </div>
+      </div>
     </template>
     <template #disconnected>
       <div>web3 not enabled!</div>
