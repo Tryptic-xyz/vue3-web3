@@ -4,6 +4,8 @@ import Web3WalletDisplay from '@/components/Web3AccountDisplay.vue'
 import { useContract } from '@/composables/useContract'
 import abi from '@/abi/oSnipe'
 import { showTxToast } from '@/utils/ToastComponents.jsx'
+import { useUserStore } from '@/stores/user'
+const { user, login, logout } = useUserStore()
 
 const CONTRACT_CONSTANTS = {
   sniperPriceETH: '0.5',
@@ -82,6 +84,10 @@ async function click() {
 </script>
 
 <template>
-  <Web3WalletDisplay :showConnectBtn="true" />
-  <button :disabled="txPending" @click="() => click()">click</button>
+  <div>
+    <RouterLink to="about">ABOUT</RouterLink>
+    <Web3WalletDisplay :showConnectBtn="true" />
+    <button v-if="!user.id" :disabled="txPending" @click="() => login()">login</button>
+    <button v-if="user.id" @click="() => logout()">logout</button>
+  </div>
 </template>
