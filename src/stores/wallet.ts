@@ -1,5 +1,6 @@
 import { watchEffect, ref, reactive, toRefs, computed } from 'vue'
 import { defineStore } from 'pinia'
+import { showErrorToast } from '@/utils/ToastComponents'
 
 import { useWeb3ProviderStore } from '@/stores/web3Provider'
 import { useENS } from '@/composables/useENS'
@@ -62,13 +63,11 @@ export const useWalletStore = defineStore('wallet', () => {
           method: 'eth_requestAccounts'
         })
 
-        console.log(accts, 'connect')
-
         setAccount(accts[0])
         error.value = ''
       } catch (err: any) {
         error.value = err.message
-        console.log(err)
+        showErrorToast(err)
       }
     }
   }
