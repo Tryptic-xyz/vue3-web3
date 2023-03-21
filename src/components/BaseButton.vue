@@ -9,6 +9,7 @@ defineProps({
     default: false,
     type: Boolean
   },
+  msg: String,
   btnText: String
 })
 </script>
@@ -25,6 +26,7 @@ defineProps({
     }"
     :disabled="disabled"
   >
+    <div class="absolute -bottom-6 text-white">{{ msg }}</div>
     <div :class="{ 'opacity-0': loading }">
       <slot>
         {{ btnText }}
