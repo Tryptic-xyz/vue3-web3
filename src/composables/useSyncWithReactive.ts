@@ -1,5 +1,5 @@
 interface IObjectKeys {
-  [key: string]: string | number | undefined
+  [key: string]: any
 }
 
 export function useSyncReactiveWithObject(reactiveObj: IObjectKeys, obj: IObjectKeys) {
