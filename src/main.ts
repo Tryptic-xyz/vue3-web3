@@ -5,9 +5,9 @@ import App from './App.vue'
 import initRouter from './router'
 
 import { initializeApp } from 'firebase/app'
-import { onAuthStateChanged, getAuth } from 'firebase/auth'
+// import { onAuthStateChanged, getAuth } from 'firebase/auth'
 
-import { useUserStore } from './stores/user'
+// import { useUserStore } from './stores/user'
 
 import './assets/main.css'
 import 'vue-toastification/dist/index.css'
@@ -22,7 +22,7 @@ const firebaseConfig = {
 }
 
 initializeApp(firebaseConfig)
-const auth = getAuth()
+// const auth = getAuth()
 
 const options = {
   position: 'top-center',
@@ -46,11 +46,11 @@ app.use(Toast, options)
 // use this for operations that
 // require accessing the database
 // any blockchain ops still go through MM
-onAuthStateChanged(auth, (user) => {
-  const { setUser } = useUserStore()
-  if (user) {
-    setUser(user)
-  }
-})
+// onAuthStateChanged(auth, (user) => {
+//   const { setUser } = useUserStore()
+//   if (user) {
+//     setUser(user)
+//   }
+// })
 
 app.mount('#app')
