@@ -4,7 +4,6 @@ import { useWeb3ProviderStore } from '@/stores/web3Provider'
 import { XCircleIcon } from '@heroicons/vue/20/solid'
 
 const store = useWeb3ProviderStore()
-console.log(store.connected)
 </script>
 
 <template>
@@ -24,5 +23,3 @@ console.log(store.connected)
     </div>
   </slot>
 </template>
-
-<style lang="scss" scoped></style>
