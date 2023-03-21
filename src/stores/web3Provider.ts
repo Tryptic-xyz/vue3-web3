@@ -24,11 +24,11 @@ export const useWeb3ProviderStore = defineStore('provider', () => {
 
   const init = async () => {
     const provider = await detectProvider()
-    const networkDetail = getNetwork()
 
     if (provider) {
-      browserProvider = new ethers.BrowserProvider(window.ethereum)
+      const networkDetail = getNetwork()
 
+      browserProvider = new ethers.BrowserProvider(window.ethereum)
       alchemyProvider = new ethers.AlchemyProvider(
         networkDetail.name,
         networkDetail.apiKeys.alchemy
