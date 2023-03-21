@@ -2,9 +2,11 @@
 import { useWeb3ProviderStore } from '@/stores/web3Provider'
 import { XCircleIcon } from '@heroicons/vue/20/solid'
 import IconSpinningIndicator from './IconSpinningIndicator.vue'
-import BaseButton from './BaseButton.vue'
 
 const provider = useWeb3ProviderStore()
+defineProps({
+  errorMsg: { default: 'Visit this site on a web3 enabled browser to continue!' }
+})
 </script>
 
 <template>
@@ -18,7 +20,7 @@ const provider = useWeb3ProviderStore()
         </div>
         <div class="ml-3">
           <h3 class="text-sm font-medium text-red-800">
-            Visit this site on a web3 enabled browser to continue!
+            {{ errorMsg }}
           </h3>
         </div>
       </div>
