@@ -10,12 +10,8 @@ import Web3AccountDisplay from '@/components/Web3AccountDisplay.vue'
     <div class="py-24 px-6 sm:px-6 sm:py-32 lg:px-8">
       <div class="mx-auto max-w-2xl text-center">
         <h2 class="text-3xl font-bold tracking-tight text-white sm:text-4xl">
-          Tryptic Has you covered.<br />Enjoy Our Vue3 Web3 Starter.
+          Tryptic's Vue Web3 Starter Kit.<br />
         </h2>
-        <p class="mx-auto mt-6 max-w-xl text-lg leading-8 text-gray-300">
-          Includes all the basic features to get you connected to the Blockchain, quickly. Like
-          lickety split quickly. Ethers.js is our library of choice.
-        </p>
         <div class="mt-6 flex items-center justify-center gap-x-6">
           <Web3AccountDisplay :showConnectBtn="true" />
         </div>
