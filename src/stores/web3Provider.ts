@@ -8,8 +8,6 @@ import { useWatchBoolean } from '@/composables/useWatchBoolean'
 import { useNetwork } from '@/composables/useNetwork'
 
 export const useWeb3ProviderStore = defineStore('provider', () => {
-  const { getNetwork } = useNetwork()
-
   const {
     onTrue: onProviderConnected,
     toggle: toggleProviderConnected,
@@ -26,6 +24,7 @@ export const useWeb3ProviderStore = defineStore('provider', () => {
     const provider = await detectProvider()
 
     if (provider) {
+      const { getNetwork } = useNetwork()
       const networkDetail = getNetwork()
 
       browserProvider = new ethers.BrowserProvider(window.ethereum)
