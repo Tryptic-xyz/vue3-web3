@@ -8,7 +8,7 @@ const wallet = useWalletStore()
 
 <template>
   <Web3Provider>
-    <template #connected>
+    <template v-if="wallet.init" #connected>
       <div class="relative flex group">
         <div
           class="group-hover:bg-slate-600/50 transition-colors group-hover:text-white relative flex justify-center cursor-pointer items-center rounded-md bg-white px-5 py-2.5 text-sm font-semibold text-gray-900 shadow-sm hover:bg-gray-100 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"

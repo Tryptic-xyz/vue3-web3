@@ -16,6 +16,7 @@ export const useWalletStore = defineStore('wallet', () => {
   const wallet: Wallet = reactive({ address: null, ensName: null })
   const listeningToEvents = ref(false)
   const error = ref('')
+  const init = ref(false)
 
   function listenToEvents() {
     if (listeningToEvents.value) {
@@ -51,6 +52,7 @@ export const useWalletStore = defineStore('wallet', () => {
     }
 
     listenToEvents()
+    init.value = true
   }
 
   async function connect() {
@@ -99,5 +101,5 @@ export const useWalletStore = defineStore('wallet', () => {
     initWallet()
   })
 
-  return { connect, error, ...toRefs(wallet), prettyAddress, getSigner }
+  return { connect, error, ...toRefs(wallet), prettyAddress, getSigner, init }
 })
