@@ -3,6 +3,7 @@ import { defineStore } from 'pinia'
 import { showErrorToast } from '@/utils/ToastComponents'
 
 import { useWeb3ProviderStore } from '@/stores/web3Provider'
+import { useWatchBoolean } from '@/composables/useWatchBoolean'
 import { useENS } from '@/composables/useENS'
 
 interface Wallet {
@@ -12,6 +13,11 @@ interface Wallet {
 
 export const useWalletStore = defineStore('wallet', () => {
   const { onProviderConnected, getProviders } = useWeb3ProviderStore()
+  const {
+    onTrue: onConnected,
+    onFalse: onDisconnected,
+    ref: walletConnected
+  } = useWatchBoolean(false)
   const { lookupAddress } = useENS()
 
   const wallet: Wallet = reactive({ address: null, ensName: null })
@@ -42,6 +48,12 @@ export const useWalletStore = defineStore('wallet', () => {
 
   function setAccount(address: string | null) {
     wallet.address = address ? address.toLocaleLowerCase() : address
+
+    if (address) {
+      walletConnected.value = true
+    } else if (!address && walletConnected.value) {
+      walletConnected.value = false
+    }
   }
 
   async function initWallet() {
@@ -100,5 +112,14 @@ export const useWalletStore = defineStore('wallet', () => {
     initWallet()
   })
 
-  return { connect, error, ...toRefs(wallet), prettyAddress, getSigner, init }
+  return {
+    onConnected,
+    onDisconnected,
+    connect,
+    error,
+    ...toRefs(wallet),
+    prettyAddress,
+    getSigner,
+    init
+  }
 })
