@@ -1,3 +1,4 @@
+<!-- TODO showing pending state while determining connection? -->
 <script setup lang="ts">
 import { useWeb3ProviderStore } from '@/stores/web3Provider'
 import { XCircleIcon } from '@heroicons/vue/20/solid'
