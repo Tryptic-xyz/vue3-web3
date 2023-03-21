@@ -19,9 +19,6 @@ const wallet = useWalletStore()
         </div>
       </div>
     </template>
-    <template #disconnected>
-      <div>web3 not enabled!</div>
-    </template>
   </Web3Provider>
 </template>
 
