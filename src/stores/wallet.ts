@@ -1,5 +1,6 @@
 import { watchEffect, ref, reactive, toRefs, computed } from 'vue'
 import { defineStore } from 'pinia'
+import { showErrorToast } from '@/utils/ToastComponents'
 
 import { useWeb3ProviderStore } from '@/stores/web3Provider'
 import { useENS } from '@/composables/useENS'
@@ -16,6 +17,7 @@ export const useWalletStore = defineStore('wallet', () => {
   const wallet: Wallet = reactive({ address: null, ensName: null })
   const listeningToEvents = ref(false)
   const error = ref('')
+  const init = ref(false)
 
   function listenToEvents() {
     if (listeningToEvents.value) {
@@ -51,6 +53,7 @@ export const useWalletStore = defineStore('wallet', () => {
     }
 
     listenToEvents()
+    init.value = true
   }
 
   async function connect() {
@@ -60,13 +63,11 @@ export const useWalletStore = defineStore('wallet', () => {
           method: 'eth_requestAccounts'
         })
 
-        console.log(accts, 'connect')
-
         setAccount(accts[0])
         error.value = ''
       } catch (err: any) {
         error.value = err.message
-        console.log(err)
+        showErrorToast(err)
       }
     }
   }
@@ -99,5 +100,5 @@ export const useWalletStore = defineStore('wallet', () => {
     initWallet()
   })
 
-  return { connect, error, ...toRefs(wallet), prettyAddress, getSigner }
+  return { connect, error, ...toRefs(wallet), prettyAddress, getSigner, init }
 })

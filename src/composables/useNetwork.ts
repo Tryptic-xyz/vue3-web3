@@ -45,18 +45,22 @@ export const useNetwork = () => {
   }
 
   const getNetwork = () => {
-    const chainId = window.ethereum.networkVersion
-    const { name, apiKeys, etherscanURL } = networkMap[chainId]
+    if (window.ethereum) {
+      const chainId = window.ethereum.networkVersion
+      const { name, apiKeys, etherscanURL } = networkMap[chainId]
 
-    network.chainId = chainId
-    network.name = name
-    network.etherscanURL = etherscanURL
-    network.apiKey = apiKeys.alchemy
+      network.chainId = chainId
+      network.name = name
+      network.etherscanURL = etherscanURL
+      network.apiKey = apiKeys.alchemy
 
-    return { ...networkMap[chainId] }
+      return { ...networkMap[chainId] }
+    }
   }
 
-  listenForNetworkChanges()
+  if (window.ethereum) {
+    listenForNetworkChanges()
+  }
 
   return { getNetwork, network }
 }
