@@ -29,8 +29,8 @@ export const useWeb3ProviderStore = defineStore('provider', () => {
 
       browserProvider = new ethers.BrowserProvider(window.ethereum)
       alchemyProvider = new ethers.AlchemyProvider(
-        networkDetail.name,
-        networkDetail.apiKeys.alchemy
+        networkDetail?.name,
+        networkDetail?.apiKeys.alchemy
       )
 
       toggleProviderConnected()

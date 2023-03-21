@@ -10,8 +10,8 @@ import Web3AccountDisplay from '@/components/Web3AccountDisplay.vue'
     <div class="py-24 px-6 sm:px-6 sm:py-32 lg:px-8">
       <div class="mx-auto max-w-3xl text-center">
         <h2 class="uppercase tracking-widest text-3xl font-bold text-white sm:text-4xl">
-          A Vue.js Starter Kit <br />
-          Built By Tryptic.
+          A Vue.js Web3 Starter Kit <br />
+          Built By <span class="underline underline-offset-4">Tryptic</span>.
         </h2>
         <div class="mt-6 flex items-center justify-center gap-x-6">
           <Web3AccountDisplay :showConnectBtn="true" />
