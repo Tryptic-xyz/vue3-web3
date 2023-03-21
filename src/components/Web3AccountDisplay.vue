@@ -11,7 +11,7 @@ const wallet = useWalletStore()
   <div class="text-white">
     <div
       v-if="wallet.address"
-      class="inline-flex items-center px-2 py-1 leading-none text-center text-white bg-black border border-white"
+      class="rounded-md inline-flex items-center px-2 py-1 leading-none text-center text-white bg-black border border-white"
     >
       <div class="w-2 h-2 bg-green-300 rounded-full"></div>
       <div class="ml-2 font-mono text-sm text-white">
