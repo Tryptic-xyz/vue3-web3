@@ -93,7 +93,7 @@ export function useContract(address: string, abi: InterfaceAbi) {
         const start = error.message.indexOf('info') + 5
         const end = error.message.indexOf('code=') - 2
         const e = JSON.parse(error.message.substring(start, end))
-        throw { error: { ...e.error } }
+        throw { ...e.error }
       } else {
         // TODO handle errors better, more descriptive error messages
         const errObj = {
@@ -109,7 +109,7 @@ export function useContract(address: string, abi: InterfaceAbi) {
           }
         }
         txPending.value = false
-        return errObj
+        throw errObj
       }
     }
   }
