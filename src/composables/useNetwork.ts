@@ -18,12 +18,12 @@ interface NetworkMap {
 }
 
 export const networkMap: NetworkMap = {
-  '1': {
+  '0x1': {
     name: 'homestead',
     apiKeys: { alchemy: 'D_wvYxbSIbPs3n7F44pv-zahs5Du-ti4' },
     etherscanURL: 'https://etherscan.io/tx/'
   },
-  '5': {
+  '0x5': {
     name: 'goerli',
     apiKeys: { alchemy: '_kk3D76yzBoH7SoPR-iKvpDd9cIDAqFi' },
     etherscanURL: 'https://goerli.etherscan.io/tx/'
@@ -44,9 +44,10 @@ export const useNetwork = () => {
     })
   }
 
-  const getNetwork = () => {
+  const getNetwork = async () => {
     if (window.ethereum) {
-      const chainId = window.ethereum.networkVersion
+      const chainId = await window.ethereum.request({ method: 'eth_chainId' })
+
       const { name, apiKeys, etherscanURL } = networkMap[chainId]
 
       network.chainId = chainId
