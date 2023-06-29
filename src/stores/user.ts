@@ -4,7 +4,7 @@ import { getAuth, signInWithCustomToken, signOut, type User } from 'firebase/aut
 import { getFunctions, httpsCallable } from 'firebase/functions'
 
 import { useWeb3ProviderStore } from '@/stores/web3Provider'
-import { useWatchBoolean } from '@/composables/useWatchBoolean'
+import { useToggleEvents } from '@/composables/useToggleEvents'
 import { useWalletStore } from '@/stores/wallet'
 
 export const useUserStore = defineStore('user', () => {
@@ -13,11 +13,11 @@ export const useUserStore = defineStore('user', () => {
   const verifySignature = httpsCallable(functions, 'verifySignedMessage')
   const isAuthenticating = ref(false)
 
-  const {
-    onTrue: onUserLoggedIn,
-    onFalse: onUserLoggedOut,
-    toggle: toggleUserLoggedInStatus
-  } = useWatchBoolean(false)
+  const [
+    onUserLoggedIn,
+    onUserLoggedOut,
+    toggleUserLoggedInStatus
+  ] = useToggleEvents(false)
 
   const user = reactive({
     id: '',

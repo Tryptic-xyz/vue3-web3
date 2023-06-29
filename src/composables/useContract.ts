@@ -4,7 +4,7 @@ import type { InterfaceAbi, Contract, Overrides, TransactionReceipt } from 'ethe
 import camelCase from 'camelcase'
 
 import { useWeb3ProviderStore } from '@/stores/web3Provider'
-import { useWatchBoolean } from './useWatchBoolean'
+import { useToggleEvents } from './useToggleEvents'
 import { useTxURL } from './useTxURL'
 
 interface ContractMethod {
@@ -25,7 +25,8 @@ export function useContract(address: string, abi: InterfaceAbi) {
   const { getProviders, onProviderConnected } = useWeb3ProviderStore()
   const txPending = ref(false)
 
-  const { onTrue: onContractInit, toggle: toggleInitContract } = useWatchBoolean(false)
+  const [onContractInit, , toggleInitContract] = useToggleEvents(false)
+
   let readContract: Contract, writeContract: Contract
 
   onProviderConnected(async () => {

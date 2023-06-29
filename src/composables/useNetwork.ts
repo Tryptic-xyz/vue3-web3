@@ -20,12 +20,12 @@ interface NetworkMap {
 export const networkMap: NetworkMap = {
   '0x1': {
     name: 'homestead',
-    apiKeys: { alchemy: 'D_wvYxbSIbPs3n7F44pv-zahs5Du-ti4' },
+    apiKeys: { alchemy: import.meta.env.VITE_ALCHEMY_API_KEY_HOMESTEAD },
     etherscanURL: 'https://etherscan.io/tx/'
   },
   '0x5': {
     name: 'goerli',
-    apiKeys: { alchemy: '_kk3D76yzBoH7SoPR-iKvpDd9cIDAqFi' },
+    apiKeys: { alchemy: import.meta.env.VITE_ALCHEMY_API_KEY_GOERLI },
     etherscanURL: 'https://goerli.etherscan.io/tx/'
   }
 }
