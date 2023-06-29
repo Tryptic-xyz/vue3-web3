@@ -6,7 +6,11 @@ export function useENS() {
   const lookupAddress = async (address: string) => {
     const { alchemyProvider } = getProviders()
 
-    return await alchemyProvider?.lookupAddress(address)
+    try {
+      return await alchemyProvider?.lookupAddress(address)
+    } catch (err) {
+      console.log(err)
+    }
   }
 
   return { lookupAddress }
